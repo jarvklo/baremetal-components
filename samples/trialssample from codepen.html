@@ -1,0 +1,104 @@
+<h1>Web components trial samples</h1>
+<p>
+  <a
+    href="https://www.smashingmagazine.com/2018/07/reusable-components-custom-elements-shadow-dom-npm/"
+  >
+    The Holy Grail Of Reusable Components: Custom Elements, Shadow DOM, And NPM
+  </a>
+</p>
+
+<hr />
+
+<copy-paste text="lorem ipsum"></copy-paste>
+
+<hr />
+
+<h2>Expandable box</h2>
+
+<expandable-box></expandable-box>
+<expandable-box
+  >I am not expanded <b>I'm slotted in from the outside</b></expandable-box
+>
+
+<!--
+
+ import "https://unpkg.com/copypaste-webcomponent@1.1.0/index.js";
+
+
+
+
+class ExpandableBox extends HTMLElement {
+  constructor() {
+    super()
+            var shadowRoot = this.attachShadow({mode: 'open'})
+//Styling...
+            shadowRoot.innerHTML = `
+<style>
+::slotted(*) {font-family: serif}
+h3 {
+  color: red;
+}
+b { color: green;}
+::slotted(b) {
+/*  color: yellow; /* takes over when no global reset is present */
+} 
+</style>
+
+<h2>hello world greeting from the shadows!</h2>
+<div>
+  <slot>
+    Greetings from the shadows <b>Hello! - I'm default content (not slotted)</b>
+  </slot>
+</div>
+`
+  }
+  
+  connectedCallback() {
+    // console.log("custom element is on the page!")
+  }
+  
+  disconnectedCallback() {
+    //console.log("element has been removed")
+  }
+  
+ static get observedAttributes() {
+            return ['expanded']
+        }
+
+  get yourCustomAttributeName() {
+    return this.getAttribute('yourCustomAttributeName');
+  }
+
+  set yourCustomAttributeName(newValue) {
+    this.setAttribute('yourCustomAttributeName', newValue);
+  }
+  
+  get expanded() {
+  return this.hasAttribute('expanded')
+}
+        
+// the second argument for setAttribute is mandatory, so we’ll use an empty string
+set expanded(val) {
+  if (val) {
+    this.setAttribute('expanded', '');
+  }
+  else {
+    this.removeAttribute('expanded')
+  }
+}
+
+attributeChangedCallback(name, oldval, newval) {
+  console.log(`the ${name} attribute has changed from ${oldval} to ${newval}!!`);
+  // do something every time the attribute changes
+}
+  
+  
+
+}
+
+customElements.define('expandable-box', ExpandableBox); 
+
+//document.body.appendChild(document.createElement("expandable-box")) //“custom element is on the page”
+
+//document.querySelector("expandable-box").remove() //"element has been removed" 
+-->

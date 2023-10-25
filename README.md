@@ -1,2 +1,3 @@
 # baremetal-components
-Competence boost session october 2023 samples
+
+Competence boost session october 2023

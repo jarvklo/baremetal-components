@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Pop quiz!</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script type="module" src="https://unpkg.com/poll-party@0.0.1"></script>
+  </head>
+  <body>
+    <h1>Pop quiz!</h1>
+
+    <p>&lt;hello-world /&gt;</p>
+
+    <poll-party host="poll-party.jarvklo.partykit.dev">
+      <question>What is hello-world?</question>
+      <option id="tag">Tag</option>
+      <option id="element">Element</option>
+      <option id="component">Component</option>
+      <option id="error">An error</option>
+      <option id="depends">It depends</option>
+    </poll-party>
+
+    <poll-party host="poll-party.jarvklo.partykit.dev">
+      <question>What isn't hello-world?</question>
+      <option id="tag">Tag</option>
+      <option id="element">Element</option>
+      <option id="component">Component</option>
+      <option id="error">An error</option>
+      <option id="depends">It depends</option>
+    </poll-party>
+
+    <p>View source to see:</p>
+
+    <ul>
+      <li>How the component is imported in a script tag</li>
+      <li>How to set the PartyKit host</li>
+      <li>How to set up the poll-party with question and options.</li>
+    </ul>
+
+    <p>
+      <a href="https://docs.partykit.io/examples/#live-polls"
+        >poll-party on partykit.io</a
+      >
+    </p>
+    <p>
+      <a href="https://github.com/partykit/sketch-polls"
+        >poll-party on GitHub &rarr;</a
+      >
+    </p>
+  </body>
+</html>

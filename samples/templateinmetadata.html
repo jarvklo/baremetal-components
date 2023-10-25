@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+  <template id="foo">
+    <h1>Hello World</h1>
+    <p>Look ma - I'm inserted from a template!</p>
+  </template>
+  <title>Hello world</title>
+</head>
+<body>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template"
+    >MDN on Template</a
+  >
+
+  <script>
+    const template = document.querySelector("#foo");
+    const node = template.content.cloneNode(true);
+    document.body.append(node);
+  </script>
+</body>
+
+<!--
+
+    // web component
+class HelloBeautifulWorld extends HTMLElement {
+  
+  // connect component
+  connectedCallback() {
+    this.textContent = 'Hello beautiful World!';
+  }
+  
+}
+
+class Wow extends HelloBeautifulWorld {
+  connectedCallback() {
+    this.textContent = 'Wow';
+  }
+}
+
+// register component
+customElements.define( 'hello-world', Wow );
+-->
