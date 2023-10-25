@@ -5,7 +5,22 @@
   </head>
   <body>
     <h1>Hello XHTML serialized world</h1>
-    <my-element />
+    <hello-world />
     <p>Remember XML?</p>
+
+    <script>
+      // web component
+      class HelloWorld extends HTMLElement {
+        constructor() {
+          super();
+        }
+        // connect component
+        connectedCallback() {
+          this.textContent = "Hello World - I'm connected!";
+        }
+      }
+      // register component
+      customElements.define("hello-world", HelloWorld);
+    </script>
   </body>
 </html>
