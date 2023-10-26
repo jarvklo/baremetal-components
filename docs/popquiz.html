@@ -5,47 +5,210 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="module" src="https://unpkg.com/poll-party@0.0.1"></script>
+    <style>
+      h2 {
+        padding: 1em;
+        border: 1px dotted blue;
+      }
+      section + section {
+        margin-top: 5em;
+        padding-top: 5em;
+        border-top: 1px dotted blue;
+      }
+    </style>
   </head>
   <body>
     <h1>Pop quiz!</h1>
 
-    <p>&lt;hello-world /&gt;</p>
+    <section>
+      <h2>&lt;div&gt;</h2>
+      <poll-party host="poll-party.jarvklo.partykit.dev">
+        <question>What is div here?</question>
+        <option id="tag">Tag</option>
+        <option id="element">Element</option>
+        <option id="component">Component</option>
+        <option id="error">An error or not allowed</option>
+        <option id="depends">It depends</option>
+      </poll-party>
+    </section>
 
-    <poll-party host="poll-party.jarvklo.partykit.dev">
-      <question>What is hello-world?</question>
-      <option id="tag">Tag</option>
-      <option id="element">Element</option>
-      <option id="component">Component</option>
-      <option id="error">An error</option>
-      <option id="depends">It depends</option>
-    </poll-party>
+    <section>
+      <h2>&lt;/div&gt;</h2>
+      <poll-party host="poll-party.jarvklo.partykit.dev">
+        <question>What is /div here?</question>
+        <option id="tag">Tag</option>
+        <option id="element">Element</option>
+        <option id="component">Component</option>
+        <option id="error">An error or not allowed</option>
+        <option id="depends">It depends</option>
+      </poll-party>
+    </section>
 
-    <poll-party host="poll-party.jarvklo.partykit.dev">
-      <question>What isn't hello-world?</question>
-      <option id="tag">Tag</option>
-      <option id="element">Element</option>
-      <option id="component">Component</option>
-      <option id="error">An error</option>
-      <option id="depends">It depends</option>
-    </poll-party>
+    <section>
+      <h2>&lt;div&gt;...&lt;/div&gt;</h2>
+      <poll-party host="poll-party.jarvklo.partykit.dev">
+        <question>What is div here then?</question>
+        <option id="tag">Tag</option>
+        <option id="element">Element</option>
+        <option id="component">Component</option>
+        <option id="error">An error or not allowed</option>
+        <option id="depends">It depends</option>
+      </poll-party>
+    </section>
 
-    <p>View source to see:</p>
+    <section>
+      <h2>&lt;img&gt;</h2>
+      <poll-party host="poll-party.jarvklo.partykit.dev">
+        <question>What is img here?</question>
+        <option id="tag">Tag</option>
+        <option id="element">Element</option>
+        <option id="component">Component</option>
+        <option id="error">An error or not allowed</option>
+        <option id="depends">It depends</option>
+      </poll-party>
+    </section>
 
-    <ul>
-      <li>How the component is imported in a script tag</li>
-      <li>How to set the PartyKit host</li>
-      <li>How to set up the poll-party with question and options.</li>
-    </ul>
+    <section>
+      <h2>&lt;img /&gt;</h2>
+      <poll-party host="poll-party.jarvklo.partykit.dev">
+        <question>And what is img here?</question>
+        <option id="tag">Tag</option>
+        <option id="element">Element</option>
+        <option id="component">Component</option>
+        <option id="error">An error or not allowed</option>
+        <option id="depends">It depends</option>
+      </poll-party>
+    </section>
 
-    <p>
-      <a href="https://docs.partykit.io/examples/#live-polls"
-        >poll-party on partykit.io</a
-      >
-    </p>
-    <p>
-      <a href="https://github.com/partykit/sketch-polls"
-        >poll-party on GitHub &rarr;</a
-      >
-    </p>
+    <section>
+      <h2>&lt;p&gt;</h2>
+      <poll-party host="poll-party.jarvklo.partykit.dev">
+        <question>What is p here?</question>
+        <option id="tag">Tag</option>
+        <option id="element">Element</option>
+        <option id="component">Component</option>
+        <option id="error">An error or not allowed</option>
+        <option id="depends">It depends</option>
+      </poll-party>
+    </section>
+
+    <section>
+      <h2>&lt;div class="whatever"&gt;...&lt;/div&gt;</h2>
+      <poll-party host="poll-party.jarvklo.partykit.dev">
+        <question>What is class here?</question>
+        <option id="tag">Tag</option>
+        <option id="element">Element</option>
+        <option id="component">Component</option>
+        <option id="attribute">Attribute</option>
+        <option id="error">An error or not allowed</option>
+        <option id="depends">It depends</option>
+      </poll-party>
+    </section>
+
+    <section>
+      <h2>&lt;div data-whatever="whatever"&gt;...&lt;/div&gt;</h2>
+      <poll-party host="poll-party.jarvklo.partykit.dev">
+        <question>What is data-whatever here?</question>
+        <option id="tag">Tag</option>
+        <option id="element">Element</option>
+        <option id="component">Component</option>
+        <option id="attribute">Attribute</option>
+        <option id="error">An error or not allowed</option>
+        <option id="depends">It depends</option>
+      </poll-party>
+    </section>
+
+    <section>
+      <h2>&lt;div whatever="whatever"&gt;...&lt;/div&gt;</h2>
+      <poll-party host="poll-party.jarvklo.partykit.dev">
+        <question>And what is whatever here?</question>
+        <option id="tag">Tag</option>
+        <option id="element">Element</option>
+        <option id="component">Component</option>
+        <option id="attribute">Attribute</option>
+        <option id="error">An error or not allowed</option>
+        <option id="depends">It depends</option>
+      </poll-party>
+    </section>
+
+    <section>
+      <h2>&lt;magic-gizmo&gt;</h2>
+      <poll-party host="poll-party.jarvklo.partykit.dev">
+        <question>What is magic-gizmo here?</question>
+        <option id="tag">Tag</option>
+        <option id="element">Element</option>
+        <option id="component">Component</option>
+        <option id="attribute">Attribute</option>
+        <option id="error">An error or not allowed</option>
+        <option id="depends">It depends</option>
+      </poll-party>
+    </section>
+
+    <section>
+      <h2>&lt;magic-gizmo&gt;...&lt;/magic-gizmo&gt;</h2>
+      <poll-party host="poll-party.jarvklo.partykit.dev">
+        <question>And what is magic-gizmo here?</question>
+        <option id="tag">Tag</option>
+        <option id="element">Element</option>
+        <option id="component">Component</option>
+        <option id="attribute">Attribute</option>
+        <option id="error">An error or not allowed</option>
+        <option id="depends">It depends</option>
+      </poll-party>
+    </section>
+
+    <section>
+      <h2>&lt;magic-gizmo style="..."&gt;...&lt;/magic-gizmo&gt;</h2>
+      <poll-party host="poll-party.jarvklo.partykit.dev">
+        <question>What is style here?</question>
+        <option id="tag">Tag</option>
+        <option id="element">Element</option>
+        <option id="component">Component</option>
+        <option id="attribute">Attribute</option>
+        <option id="error">An error or not allowed</option>
+        <option id="depends">It depends</option>
+      </poll-party>
+    </section>
+
+    <section>
+      <h2>
+        &lt;magic-gizmo data-whatever="whatever"&gt;...&lt;/magic-gizmo&gt;
+      </h2>
+      <poll-party host="poll-party.jarvklo.partykit.dev">
+        <question>What is the data-whatever here?</question>
+        <option id="tag">Tag</option>
+        <option id="element">Element</option>
+        <option id="component">Component</option>
+        <option id="attribute">Attribute</option>
+        <option id="error">An error or not allowed</option>
+        <option id="depends">It depends</option>
+      </poll-party>
+    </section>
+
+    <section>
+      <h2>&lt;magic-gizmo whatever="whatever"&gt;...&lt;/magic-gizmo&gt;</h2>
+      <poll-party host="poll-party.jarvklo.partykit.dev">
+        <question>What is the whatever here?</question>
+        <option id="tag">Tag</option>
+        <option id="element">Element</option>
+        <option id="component">Component</option>
+        <option id="attribute">Attribute</option>
+        <option id="error">An error or not allowed</option>
+        <option id="depends">It depends</option>
+      </poll-party>
+    </section>
+
+    <section>
+      <h2>&lt;magic-gizmo /&gt;</h2>
+      <poll-party host="poll-party.jarvklo.partykit.dev">
+        <question>What is magic-gizmo when written like that?</question>
+        <option id="tag">Tag</option>
+        <option id="element">Element</option>
+        <option id="component">Component</option>
+        <option id="attribute">Attribute</option>
+        <option id="error">An error or not allowed</option>
+        <option id="depends">It depends</option>
+      </poll-party>
+    </section>
   </body>
 </html>

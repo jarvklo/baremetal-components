@@ -1,24 +1,926 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Baremetal web components</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bare metal web components</title>
+    <style>
+      section {
+        padding-bottom: 1em;
+        border-bottom: 1px solid black;
+      }
+
+      article {
+        min-height: 1000px;
+      }
+
+      h1 {
+        margin-top: 0;
+        padding-top: 1em;
+      }
+      */ h2 {
+        border-bottom: 1px dotted blue;
+        margin: 1em;
+      }
+      h3 {
+        margin: 1em 1em 1em 1.5em;
+      }
+      li {
+        padding: 0.4em;
+      }
+    </style>
+
+    <style>
+      scrollspy-nav {
+        position: sticky;
+        top: 0;
+        display: flex;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        background-color: var(--scrollspy-nav-background-color, Canvas);
+      }
+
+      scrollspy-nav > * {
+        margin: 0 auto;
+        padding: 0;
+        display: flex;
+        gap: var(--scrollspy-nav-list-gap, 2rem);
+        list-style: none;
+      }
+
+      scrollspy-nav li {
+        position: relative;
+      }
+
+      scrollspy-nav a {
+        display: block;
+        margin-block: var(--scrollspy-nav-link-margin-block, 1rem);
+        text-decoration: none;
+        white-space: nowrap;
+        outline-offset: var(--scrollspy-nav-link-outline-offset, 4px);
+      }
+
+      scrollspy-nav [aria-current="true"] {
+        color: var(--scrollspy-nav-link-color-active, currentcolor);
+      }
+
+      scrollspy-nav [data-marker] {
+        position: absolute;
+        top: var(--scrollspy-nav-marker-top, initial);
+        bottom: var(--scrollspy-nav-marker-bottom, 0);
+        left: 0;
+        background-color: var(--scrollspy-nav-marker-color, currentcolor);
+        z-index: -1;
+        width: 1px;
+        height: var(--scrollspy-nav-marker-height, 4px);
+        transform-origin: left;
+      }
+      header {
+        text-align: center;
+        margin-block: 25vh;
+      }
+
+      header ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem 1rem;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      header a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+        text-align: center;
+      }
+
+      header svg {
+        --icon-size: 1.5rem;
+        box-sizing: border-box;
+        width: var(--icon-size);
+        height: var(--icon-size);
+      }
+
+      main {
+        margin-block-end: 50vh;
+      }
+
+      section + section {
+        margin-block-start: 6rem;
+      }
+
+      scrollspy-nav {
+        margin-inline: calc(var(--page-gutters) * -1);
+        padding-inline: var(--page-gutters);
+        scrollbar-width: none;
+      }
+
+      scrollspy-nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      article {
+        scroll-margin-top: 6rem;
+        /*    inline-size: min(65ch, 100%); */
+        margin-inline: auto;
+      }
+
+      * + article {
+        margin-block-start: 4rem;
+      }
+
+      .nav-two {
+        --scrollspy-nav-marker-top: 0;
+        --scrollspy-nav-marker-height: 5px;
+        --scrollspy-nav-marker-color: royalblue;
+        --scrollspy-nav-marker-duration: 400ms;
+        --scrollspy-nav-marker-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+
+      .nav-three {
+        --scrollspy-nav-marker-top: 0;
+        --scrollspy-nav-marker-height: 100%;
+        --scrollspy-nav-marker-color: papayawhip;
+        --scrollspy-nav-marker-duration: 300ms;
+        --scrollspy-nav-marker-ease: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .nav-three > * {
+        gap: unset;
+      }
+
+      .nav-three a {
+        padding-inline: 1.5rem;
+        transition: color var(--scrollspy-nav-marker-duration)
+          var(--scrollspy-nav-marker-ease);
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        html {
+          scroll-behavior: smooth;
+        }
+      }
+
+      body {
+        --page-gutters: clamp(1rem, 6vw, 2rem);
+        font-family: system-ui;
+        margin: 0;
+        padding-inline: var(--page-gutters);
+      }
+
+      p {
+        font-size: 1.125rem;
+        line-height: 1.5;
+      }
+
+      a {
+        color: royalblue;
+      }
+    </style>
   </head>
   <body>
-    <h1>Baremetal web components</h1>
-    <span>Hello span</span>
-    <div>Hello Div</div>
-    <custom-element>Hello custom element</custom-element>
+    <main>
+      <scrollspy-nav role="navigation" aria-label="Navigation test one">
+        <ul>
+          <li>
+            <a href="#intro">Welcome</a>
+          </li>
+          <li>
+            <a href="#basics">Basics</a>
+          </li>
+          <li>
+            <a href="#customelements">Custom elements</a>
+          </li>
+          <li>
+            <a href="#lifecycleevents">Life cycle events</a>
+          </li>
+          <li>
+            <a href="#shadowdom">Shadow dom</a>
+          </li>
+          <li>
+            <a href="#webassembly">Web assembly</a>
+          </li>
+          <li>
+            <a href="#summary">Summary</a>
+          </li>
+        </ul>
+      </scrollspy-nav>
+      <section id="intro">
+        <article>
+          <h1>Bare metal Web Components</h1>
+          <h2>
+            <a
+              href="https://webstep.se/kalender/evenemang-/2023-10-17-bare-metal-web-components"
+              >Welcome!</a
+            >
+          </h2>
+          <ul>
+            <li>
+              What would happen if you actively chose to not rely on
+              abstractions like frameworks, libraries, build chains, transpilers
+              and whatnot for your component-based frontend architectures? your
+              web applications? your web pages? or even your design systems?
+            </li>
+
+            <li>
+              Let's talk for a bit about what is available "under the hood" in
+              our modern browsers from a "pure vanilla" web standards
+              perspective.
+            </li>
+            <li>
+              Hi - I'm <a href="https://jarvklo.se">Åke Järvklo</a> , and I am
+              an evergreen developer / old web dog. Well sort of :)
+              <br />
+              and I am a consultant here at
+              <a href="https://webstep.se">Webstep</a>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              ... and I hope for your collaboration (in a quiz) shortly
+              <p>
+                <a href="popquiz.png"
+                  ><img src="popquiz.png" alt="" width="200"
+                /></a>
+              </p>
+            </li>
+          </ul>
+        </article>
+      </section>
+      <section id="basics">
+        <article>
+          <h1>Follow me back to the basics</h1>
+          <h2>DX? DX!</h2>
+          <ul>
+            <li>Well - it's up to you sir - what's your preference?</li>
+            <li>"Then you simply" ... (been there, done that)</li>
+            <li>
+              And what kind of "<a
+                href="https://www.lego.com/en-us/product/tree-house-21318"
+                >Lego bricks</a
+              >" are we actually talking about BTW?
+            </li>
+            <li>
+              Lets keep it really simple and look at some of what is available
+              in our browsers when starting from an empty HTML page
+            </li>
+          </ul>
+        </article>
+
+        <article>
+          <h2>A bit of history</h2>
+
+          <h3>
+            Minimal HTML and
+            <a href="https://validator.nu">the validator</a>
+          </h3>
+          <ul>
+            <li>Doctypes and browser wars (backwards compatibilty)</li>
+            <li>HTML 5 (W3C vs WHATWG)</li>
+            <li>
+              <a href="https://html.spec.whatwg.org/multipage/"
+                >Living standard</a
+              >
+            </li>
+          </ul>
+        </article>
+        <article>
+          <h2>So - Basics</h2>
+          <h3>
+            Standards <a href="popquiz.html">pop quiz</a> - elements, tags,
+            attributes and basic behaviour
+          </h3>
+          <p>
+            <a href="popquiz.png"
+              ><img src="popquiz.png" alt="" width="200"
+            /></a>
+          </p>
+          <details>
+            <summary>Some final words</summary>
+            <h3>
+              But isn't using a custom element expressed as &lt;magic-gizmo&gt;
+              /> impossible?
+            </h3>
+            <ul>
+              <li>
+                Well, actually... <br />There is this
+                <a
+                  href="https://jarvklo.github.io/baremetal-components/index.xhtml"
+                  >nerdy "party trick"
+                </a>
+                that proves that it's doable.
+              </li>
+              <li>
+                And it works since
+                <a href="https://html.spec.whatwg.org/#the-xhtml-syntax"
+                  >application/xhtml+xml</a
+                >
+                is still a thing in HTML5 (and browsers still ask for that
+                MIME-type)
+              </li>
+              <li>
+                But using text/html (like the rest of the web)? - it will not do
+                what you probably intended
+              </li>
+            </ul>
+          </details>
+        </article>
+      </section>
+
+      <section id="customelements">
+        <article>
+          <h1>Custom elements</h1>
+          <h2>Use case: Rapid prototyping in code</h2>
+          <ul>
+            <li>
+              <a href="https://codepen.io/jarvklo/pen/JjxdEQe">let's dig in</a>
+            </li>
+          </ul>
+        </article>
+        <article>
+          <h2>Css and scoping</h2>
+          <h3>&lt;style scoped&gt; is not a platform thing!</h3>
+
+          <ul>
+            <li>That proposal was dropped a long time ago</li>
+            <li>However...</li>
+            <li>
+              <a href="https://chriscoyier.net/2023/10/19/style-scoped/"
+                >https://chriscoyier.net/2023/10/19/style-scoped/</a
+              >
+            </li>
+            <li>
+              Until more CSS goodness gets available - knoweth thy CSS Cascade!
+            </li>
+            <li>
+              ... or consider using a preprocessor or styling framework if you
+              want (or need) to stay out of the shadow DOM
+            </li>
+          </ul>
+        </article>
+        <article>
+          <h2>Light Dom and the APIs</h2>
+          <ul>
+            <li>
+              Kind of sounds like a pop group from the swinging sixties doesn't
+              it?
+            </li>
+            <li>
+              <a href="https://codepen.io/jarvklo/pen/QWYbpRx">Let's see</a>
+            </li>
+          </ul>
+
+          <h3>Autonomous and customized custom elements</h3>
+          <ul>
+            <li>Autonomous custom elements extends from HTMLElement (v1)</li>
+            <li>... and is widely implemented/available</li>
+            <li>
+              There's also autonomous custom element (v2) that extends the
+              functionality of other standars elements
+            </li>
+            <li>
+              <a href="https://caniuse.com/custom-elementsv1">v1 vs v2</a> (v2
+              was dropped and targeted for exclusion, but may be revived again)
+            </li>
+            <li>
+              ... so perhaps there's hope for the future?
+              <a
+                href="https://eisenbergeffect.medium.com/web-components-at-tpac-2023-f6da57519eb9"
+                >web-components-at-tpac-2023</a
+              >
+              )
+            </li>
+          </ul>
+        </article>
+      </section>
+      <section id="lifecycleevents">
+        <h1>Life cycle callbacks and stuff</h1>
+        <article>
+          <h2>OK - what are those exactly??</h2>
+          <ul>
+            <li>
+              <a href="https://codepen.io/jarvklo/pen/QWYjwvv"
+                >Let's try them out - all four of them</a
+              >
+            </li>
+            <li>
+              Implementing the life cycle callbacks ("hooks") can be a nice way
+              to enable a consistent structure for your javascript code
+            </li>
+            <li>
+              <a
+                href="https://blog.jim-nielsen.com/2023/web-components-icon-galleries/#conclusion"
+                >Custom elements as an organizing principle of JS code</a
+              >
+            </li>
+          </ul>
+        </article>
+        <!-- article>
+          <h2>Templating part 1 - Templates in the light dom</h2>
+          <ul>
+            <li>As we've seen</li>
+            <li>Combining ideas and the platform can be useful</li>
+          </ul>
+        </article -->
+
+        <article>
+          <h2>More useful stuff in the platform</h2>
+          <h3>Event delegation can be useful</h3>
+          <ul>
+            <li>
+              <a
+                href="https://darthmall.net/weblog/2023/useful-web-components-toggle-buttons/"
+                >Toggle buttons</a
+              >
+            </li>
+          </ul>
+          <h3>Extending the window object with an event bus might be nice</h3>
+          <ul>
+            <li>
+              <a
+                href="https://betterprogramming.pub/poor-mans-event-bus-with-zero-lines-of-code-d4e66fe8f56b"
+                >Poor man's event bus with zero lines of code</a
+              >
+            </li>
+          </ul>
+        </article>
+        <article>
+          <h2>
+            But wait - doesn't this start to feel very similar to micro frontend
+            patterns?
+          </h2>
+          <blockquote>
+            <p>We call this technique micro frontends which we define as:</p>
+            &quot;An architectural style where independently deliverable
+            frontend applications are composed into a greater whole&quot;
+          </blockquote>
+          <ul>
+            <li>
+              <a
+                href="https://martinfowler.com/articles/micro-frontends.html#Run-timeIntegrationViaWebComponents"
+                >martinfowler.com/articles/micro-frontends.html</a
+              >
+            </li>
+            <li>
+              <a href="https://indieweb.social/@jaredwhite/111291114158878395"
+                >Well - maybe?</a
+              >
+              (some debate about that is currently ongoing)
+            </li>
+            <li>
+              ... or perhaps even something like Island architecture patterns?
+            </li>
+            <li>
+              well - maybe...
+              <a
+                href="https://betterprogramming.pub/poor-mans-island-architecture-cbcb0ac45092"
+                >Poor man's islands architecture</a
+              >
+            </li>
+          </ul>
+        </article>
+      </section>
+
+      <section id="reactivity">
+        <article>
+          <h1>Reactivity via observed attributes</h1>
+          <h2>The incrementing button sample</h2>
+          <ul>
+            <li>storing state in a prop</li>
+            <li>"just works" ...</li>
+            <li>... as long as the component is registered on the page</li>
+            <li>
+              <a href="https://codepen.io/jarvklo/pen/QWYjwvv">as we've seen</a>
+            </li>
+            <li>
+              <a href="https://codepen.io/jarvklo/pen/dyaYobY"
+                >Let's elaborate</a
+              >
+            </li>
+          </ul>
+        </article>
+
+        <!--
+        <article>
+          <h2>Include fragment component sample</h2>
+          <ul>
+            <li>Wc-include</li>
+            <li>TODO: pen</li>
+          </ul>
+        </article>
+        <article>
+          <h2>Infinite paging include (rss?) component</h2>
+          <ul>
+            <li>Load more button?</li>
+            <li>Infinite scroll by Intersection Observer?</li>
+            <li>TODO: Kill this darling?</li>
+          </ul>
+        </article>
+      --></section>
+
+      <section id="shadowdom">
+        <article>
+          <h1>Welcome to the dark side</h1>
+          <h2>The shadow DOM</h2>
+          <ul>
+            <li><a href=""> Basic concepts</a></li>
+            <li>
+              <a
+                href="https://www.matuzo.at/blog/2023/pros-and-cons-of-shadow-dom"
+                >Pros and cons of using Shadow DOM and style encapsulation</a
+              >
+            </li>
+          </ul>
+
+          <!--          
+          <h3>Open/closed</h3>
+          <ul>
+            <li>
+              TODO: Pen from the radiobutton article? or link to example/article
+            </li>
+          </ul>
+
+          <h3>Hey - where did my button go?</h3>
+          <ul>
+            <li>TODO: Pen from the radiobutton article?</li>
+          </ul>
+        --></article>
+
+        <article>
+          <h2>Templating Part 2 - slots and stuff in the Shadow DOM</h2>
+          <h2>Slots and stuff</h2>
+          <h3>Slots - Just how closed is the shadow DOM?</h3>
+          <ul>
+            <li>
+              <a href="https://web.dev/learn/html/template"
+                >Templates slots and shadow</a
+              >
+            </li>
+          </ul>
+
+          <h3>Scroedingers box?</h3>
+          <ul>
+            <li>Styling might (still) be a bit complex</li>
+            <li>Scoping style is probably an issues</li>
+            <li>Slots are lioght sensitive</li>
+            <li>CSS pseudo selectors (current and future)</li>
+            <li>CSS variables in the shadow</li>
+            <li>CSS parts and all the rest of the goodies</li>
+          </ul>
+
+          <h3>The complexity of constructing form elements in the dark</h3>
+          <ul>
+            <li>
+              <a
+                href="https://www.matuzo.at/blog/2023/pros-and-cons-of-shadow-dom"
+                >Pros and cons of using Shadow DOM and style encapsulation</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.matuzo.at/blog/2023/web-components-accessibility-faq/"
+                >web-components-accessibility-faq</a
+              >
+            </li>
+          </ul>
+        </article>
+      </section>
+
+      <section id="webassembly">
+        <article>
+          <h1>This web assembly thing</h1>
+          <h2>Birds eye view...</h2>
+          <ul>
+            <li><a href="https://webassembly.org/">webassembly.org</a></li>
+          </ul>
+          <ul>
+            <li>
+              <a
+                href="https://medium.com/sigma-itc-poland-stories/running-down-webassembly-101-f2f39010d34a"
+                >Running down — WebAssembly 101</a
+              >
+            </li>
+          </ul>
+        </article>
+        <!--
+        <article>
+          <h2>
+            Implementera som ett custom-element (en webbkomponent som använder
+            webassembly)
+          </h2>
+        </article>
+-->
+      </section>
+      <section id="summary">
+        <article>
+          <h1>Simply the best?</h1>
+          <ul>
+            <li>So many possibilities - again!</li>
+            <li>Tech in browsers is evolving - and fast</li>
+            <li>
+              For me - it is a great time to be curious and keep learning new
+              tricks
+            </li>
+            <li>For you?</li>
+            <li>Well - it's up to you, what's your preference?</li>
+
+            <li>
+              I hope I inspired you to spend some time to maybe reflect over if
+              you're about to reinvent a wheel (or use a reinvented and perhaps
+              overly complex set of Lego bricks to build one) the next time you
+              "pick your poison" for a frontend project
+            </li>
+
+            <li>
+              ... regardless of whatever a "wheel" actually is to you and to
+              your your team, in your particular project, and regardless how you
+              feel about defining your world using toys produced by Lego
+            </li>
+            <li>There's always more than one way...</li>
+            <li>
+              ... and the debate around certain takes on web components and
+              frameworks is very much alive right now
+              <a href="https://indieweb.social/@jaredwhite/111291086783169207"
+                >as exemplified here</a
+              >
+            </li>
+            <li>
+              <a href="https://open.spotify.com/track/4EfZ2eaFjn1MQbKZD8urIz"
+                >The web component future seems bright... :)
+              </a>
+            </li>
+            <li><a href="https://jarvklo.se">Stay curious!</a></li>
+          </ul>
+          <h2>Resources</h2>
+          <ul>
+            <li>
+              <a href="https://github.com/jarvklo/baremetal-components"
+                >Github repo</a
+              >
+            </li>
+            <li><a href="https://codepen.io/collection/mrQVQw">Codepen</a></li>
+          </ul>
+          <h2>Links</h2>
+          <ul>
+            <li>
+              <a
+                href="https://www.matuzo.at/blog/2023/web-components-accessibility-faq/"
+                >web-components-accessibility-faq</a
+              >
+            </li>
+            <li>
+              <a href="https://kinsta.com/blog/web-components/"
+                >A Complete Introduction to Web Components</a
+              >
+            </li>
+
+            <li>
+              <a href="https://aaadaaam.com/notes/step-into-the-light-dom/"
+                >Step into the light (DOM)</a
+              >
+            </li>
+            <li>
+              <a href="https://ryanmulligan.dev/blog/scrollspy-nav/"
+                >scrollspy-nav</a
+              >
+            </li>
+
+            <li>
+              <a href="https://blog.partykit.io/posts/live-polls-with-stencil"
+                >Live poll web component for Partykit</a
+              >
+            </li>
+            <li>
+              <a href="https://www.componentdriven.org/">componentdriven.org</a>
+            </li>
+            <li>
+              <a
+                href="https://eisenbergeffect.medium.com/debunking-web-component-myths-and-misconceptions-ea9bb13daf61"
+                >Debunking Web Component Myths and Misconceptions</a
+              >
+            </li>
+
+            <li>
+              <a
+                href="https://medium.com/flat-pack-tech/ikea-com-the-problems-with-static-content-3cd750a5f529"
+                >Ikea, static content and web components</a
+              >
+            </li>
+          </ul>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      class ScrollSpyNav extends HTMLElement {
+        constructor() {
+          super();
+
+          this.activeLink;
+          this.duration = 200;
+          this.ease = "cubic-bezier(0.25, 1, 0.5, 1)";
+          this.links = this.querySelectorAll("a");
+          this.marker;
+          this.observer;
+          this.observerOptions = {};
+          this.sections = [];
+        }
+
+        connectedCallback() {
+          this.getSections();
+          this.getObserverOptions();
+          this.setAnimationProps();
+          this.handleClick();
+
+          document.addEventListener("readystatechange", (e) => {
+            if (e.target.readyState === "complete") {
+              this.setObserver();
+              this.createMarker();
+            }
+          });
+        }
+
+        adjustMenuPosition(el) {
+          const rect = el.getBoundingClientRect();
+          const offset = parseFloat(this.getCSSProp("padding-inline-start"));
+          const overflowLeft = Math.floor(rect.left - offset) < 0;
+          const overflowRight =
+            Math.floor(rect.right + offset) > this.offsetWidth;
+
+          if (!overflowLeft && !overflowRight) return;
+
+          let value = 0;
+
+          if (overflowLeft) {
+            value = this.scrollLeft - offset + rect.left;
+          } else if (overflowRight) {
+            value = this.scrollLeft + offset + rect.right - this.offsetWidth;
+          }
+
+          this.scrollTo({
+            left: value,
+            behavior: this.reducedMotion() ? "auto" : "smooth",
+          });
+        }
+
+        animateMarker(el) {
+          const last = el.getBoundingClientRect();
+          const first = this.activeLink?.getBoundingClientRect() || last;
+          const deltaX = first.left - last.left;
+
+          const keyframes = [
+            { transform: `translateX(${deltaX}px) scaleX(${first.width})` },
+            { transform: `translateX(0) scaleX(${last.width})` },
+          ];
+
+          const options = {
+            duration: this.reducedMotion() ? 0 : this.duration,
+            easing: this.ease,
+            fill: "forwards",
+          };
+
+          el.after(this.marker);
+          this.setActiveLink(el);
+          this.marker.animate(keyframes, options);
+        }
+
+        createMarker() {
+          const el = document.createElement("div");
+          el.setAttribute("data-marker", "");
+          this.marker = el;
+        }
+
+        getObserverOptions() {
+          const root = this.getAttribute("observer-root");
+          const rootMargin = this.getAttribute("observer-root-margin");
+          const threshold = this.getAttribute("observer-threshold");
+
+          this.observerOptions = {
+            root: document.querySelector(root),
+            rootMargin: rootMargin || "-25% 0% -75% 0%",
+            threshold: Number(threshold),
+          };
+        }
+
+        getCSSProp(value) {
+          return getComputedStyle(this).getPropertyValue(value);
+        }
+
+        getSections() {
+          [...this.links].map((link) => {
+            if (new URL(link.href).host !== window.location.host) return;
+
+            const el = document.querySelector(link.hash);
+            const value = link.hash.substring(1);
+
+            if (!el) {
+              console.warn(
+                `${this.constructor.name}: Element with id "${value}" doesn't exist on this page.`
+              );
+              return;
+            }
+
+            this.sections.push(el);
+          });
+        }
+
+        handleClick() {
+          this.addEventListener("click", () => {
+            if (!this.observer) return;
+            this.observer.disconnect();
+            this.observer = null;
+            this.handleScroll();
+          });
+        }
+
+        handleScroll() {
+          const handleObserver = () => {
+            if (this.observer) return;
+
+            this.setObserver();
+
+            if ("onscrollend" in window) {
+              document.removeEventListener("scrollend", handleObserver);
+            } else {
+              document.removeEventListener("scroll", handleObserver);
+            }
+          };
+
+          if ("onscrollend" in window) {
+            document.addEventListener("scrollend", handleObserver);
+          } else {
+            document.addEventListener("scroll", () => {
+              clearTimeout(this.scrollEndTimer);
+              this.scrollEndTimer = setTimeout(handleObserver, 100);
+            });
+          }
+        }
+
+        reducedMotion() {
+          return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        }
+
+        setActiveLink(el) {
+          this.activeLink?.removeAttribute("aria-current");
+          el.setAttribute("aria-current", "true");
+          this.activeLink = el;
+        }
+
+        setAnimationProps() {
+          this.setDuration();
+          this.setEasing();
+        }
+
+        setDuration() {
+          const value = this.getCSSProp("--scrollspy-nav-marker-duration");
+
+          if (!value) return;
+
+          const unit = value.split(/\d+/g).pop();
+          const duration =
+            unit === "s" ? parseInt(value) * 1000 : parseInt(value);
+
+          this.duration = duration;
+        }
+
+        setEasing() {
+          const value = this.getCSSProp("--scrollspy-nav-marker-ease");
+
+          if (!value) return;
+
+          this.ease = value;
+        }
+
+        setObserver() {
+          const onIntersect = (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+
+              const link = this.querySelector(`[href="#${entry.target.id}"`);
+
+              this.animateMarker(link);
+              this.adjustMenuPosition(link);
+            });
+
+            if (!this.activeLink) {
+              this.animateMarker(this.links[0]);
+            }
+          };
+
+          this.observer = new IntersectionObserver(
+            onIntersect,
+            this.observerOptions
+          );
+          this.sections.forEach((section) => this.observer.observe(section));
+        }
+      }
+
+      if ("customElements" in window) {
+        window.customElements.define("scrollspy-nav", ScrollSpyNav);
+      }
+    </script>
   </body>
 </html>
-
-<!--
-function hello() {alert('hello')}
-document.getElementsByTagName('custom-element')[0].addEventListener('click',hello)
-
-
-vanilla-accordion 
-
-vanilla-panel
--->
